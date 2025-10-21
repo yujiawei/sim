@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflare 隧道测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .success {
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .info {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Cloudflare 隧道连接成功！</h1>
+        <div class="status">
+            <div class="success">✓ 隧道状态：正常运行</div>
+            <div class="info">📍 服务器位置：SimStudio 开发环境</div>
+            <div class="info">🕐 连接时间：<span id="time"></span></div>
+            <div class="info">🌐 您的 IP：<span id="ip">获取中...</span></div>
+        </div>
+        <p style="text-align: center; margin-top: 30px;">
+            恭喜！您已成功通过 Cloudflare 隧道连接到本地服务器。<br>
+            这证明隧道配置正确，可以从公网访问本地服务。
+        </p>
+    </div>
+
+    <script>
+        // 显示当前时间
+        document.getElementById('time').textContent = new Date().toLocaleString('zh-CN');
+
+        // 获取客户端 IP（通过 Cloudflare 提供的 API）
+        fetch('https://1.1.1.1/cdn-cgi/trace')
+            .then(response => response.text())
+            .then(data => {
+                const ipMatch = data.match(/ip=([^\n]+)/);
+                if (ipMatch) {
+                    document.getElementById('ip').textContent = ipMatch[1];
+                }
+            })
+            .catch(() => {
+                document.getElementById('ip').textContent = '无法获取';
+            });
+    </script>
+</body>
+</html>

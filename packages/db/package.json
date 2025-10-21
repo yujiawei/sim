@@ -19,6 +19,7 @@
     }
   },
   "scripts": {
+    "build": "echo 'No build needed for @sim/db'",
     "db:push": "bunx drizzle-kit push --config=./drizzle.config.ts",
     "db:migrate": "bunx drizzle-kit migrate --config=./drizzle.config.ts",
     "db:studio": "bunx drizzle-kit studio --config=./drizzle.config.ts",

@@ -1,10 +1,8 @@
-import { Inter } from 'next/font/google'
-
-export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
+// Fallback to system fonts due to network restrictions
+export const inter = {
   variable: '--font-inter',
-  // Variable font supports weights from 100-900
-  weight: 'variable',
-  fallback: ['system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans'],
-})
+  className: '',
+  style: {
+    fontFamily: 'system-ui, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif',
+  },
+}
